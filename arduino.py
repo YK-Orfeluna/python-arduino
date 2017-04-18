@@ -16,6 +16,10 @@ SERVO = "SERVO"
 D1 = np.arange(0, 181)
 D2 = np.arange(180, -1, -1)
 
+UNO = "UNO"
+MEGA = "MEGA"
+SAINSMART = "SAINSMART"
+
 """
 SAINSMART = {
 	'digital': tuple(x for x in range(14)),
@@ -35,13 +39,13 @@ def exchangeV(value, V=5.0) :
 	return out
 
 class Arduino :
-	def __init__(self, port, board="UNO") :
-		if board == "UNO":
+	def __init__(self, port, board=UNO) :
+		if board == UNO:
 			self.board = pyfirmata.Arduino(port)		# Arduinoと接続
-		elif board == "MEGA" :
+		elif board == MEGA :
 			self.board = pyfirmata.ArduinoMega(port)
 		"""
-		elif board == "SAINSMART" :
+		elif board == SAINSMART :
 			self.board = pyfirmata.Board(port, layout=SAINSMART)
 		"""
 
@@ -56,7 +60,7 @@ class Arduino :
 		A5 = self.board.get_pin('a:5:i')
 		self.ANALOG = [A0, A1, A2, A3, A4, A5]
 
-		if board == "MEGA" :
+		if board == MEGA :
 			A6 = self.board.get_pin('a:6:i')
 			A7 = self.board.get_pin('a:7:i')
 			A8 = self.board.get_pin('a:8:i')
@@ -92,7 +96,7 @@ class Arduino :
 		elif mode == SERVO :
 			self.board.digital[pin].mode = pyfirmata.SERVO			# digital pin in SERVO mode
 		else :
-			print("*mode is missing: 'INPUT', 'OUTPUT', 'ANALOG', 'PWM' or 'SERVO'")
+			print("*mode is missing: %s, %s, %s, %s or %s" %(INPUT, OUTPUT, ANALOG, PWM, SERVO))
 
 		time.sleep(1)
 
@@ -147,7 +151,7 @@ class Arduino :
 			print("*Worning!!: angle is out of limits")
 
 	def servo_attach(self, pin, angle=90) :
-		self.pinMode(pin, "SERVO")
+		self.pinMode(pin, SERVO)
 		time.sleep(1)
 		self.servo_write(pin, angle)
 
@@ -159,8 +163,9 @@ class Arduino :
 			value = int(round(value, 0))
 		return value
 
-	def finish(self) :
+	def disconnection(self) :
 		self.board.exit()
+		print("*disconnected to Arduino")
 
 if __name__ == "__main__" :
 	port = "/dev/cu.usbmodem1421"
@@ -176,9 +181,9 @@ if __name__ == "__main__" :
 	a.pinMode(9, "OUTPUT")
 	a.digitalWrite(9, "HIGH")
 	delay(100)
-	a.digitalWrite(9, LOW)
+	a.digitalWrite(9, "LOW")
 	a.digitalWrite(13, "LOW")
 
-	a.finish()
+	a.disconnection()
 
 	exit()
