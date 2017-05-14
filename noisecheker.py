@@ -12,26 +12,26 @@ if CNT <= 256 :
 else :
 	segment = 256
 
-
 FS = 10000			# PSDの周波数上限
 
 if __name__ == "__main__" :
 	if TEST == False:
 		from arduino import*
 
-		port = "/dev/cu.usbmodem1421"
-		pin = 0
+		PORT = "/dev/cu.usbmodem1421"
+		PIN = 0
 		STR_LI = ["*Collecting sensor-values.    ", "*Collecting sensor-values. .  ", "*Collecting sensor-values. . ."]
 
-		app = Arduino(port)
+		app = Arduino(PORT)
 	
 		arr = []
 		for i in range(CNT) :
-			arr.append(app.analogRead(pin))
+			arr.append(app.analogRead(PIN))
 			sys.stdout.write("\r%d" % STR_LI[i%len(STR_LI)])
 			sys.stdout.flush()
 			delay(10)
 
+		app.disconnection()
 		arr = np.array(arr, dtype=np.int64)
 
 	else :
