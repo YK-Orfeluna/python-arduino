@@ -39,3 +39,5 @@ if __name__ == "__main__" :
 	c = int(input(">>>"))
 
 	print("\n%.3f Hz" %freq(r, c))
+
+	exit()
