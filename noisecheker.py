@@ -52,7 +52,7 @@ if __name__ == "__main__" :
 
 	plt.subplot(212)						# 計算したPSDをグラフ化
 
-	plt.plot(f, pxx)
+	plt.plot(f, pxx, color="r")
 	plt.xlim(-100, FS*1.05)
 
 	if np.amin(pxx) < 0 :
