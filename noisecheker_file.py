@@ -2,7 +2,6 @@ import sys
 import numpy as np
 import pandas as pd
 import scipy.signal as signal
-import matplotlib.pyplot as plt
 
 v = sys.version_info[0]
 if v == 2 :
@@ -49,6 +48,7 @@ if __name__ == "__main__" :
 
 	f, pxx = signal.welch(data, fs=FS*2, nperseg=segment)
 	
+	import matplotlib.pyplot as plt
 	plt.subplot(211)						# 測定したセンサ値（もしくは生成した乱数）をグラフ化
 	x = [i+1 for i in range(data.shape[0])]
 	plt.plot(x, data)
