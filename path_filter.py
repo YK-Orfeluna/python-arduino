@@ -1,10 +1,7 @@
 from math import pi
 
-capacitor = [100, 101, 102, 103, 104, 105, 106, 223, 333, 473, 474]
 p = 1e-12
 u = 1e-6
-farad = [10*p, 100*p, 0.001*u, 0.01*u, 0.1*u, 1*u, 10*u, 0.022*u, 0.033*u, 0.047*u, 0.47*u]
-
 
 capacitor = {
 				100:10*p, 
@@ -32,7 +29,7 @@ def filter(fc) :
 	
 
 def freq(r, c) :
-	global capacitor, farad
+	global capacitor
 
 	c = capacitor[c]
 
